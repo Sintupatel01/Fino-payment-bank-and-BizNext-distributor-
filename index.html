@@ -1,38 +1,146 @@
 <!DOCTYPE html>
-<html>
-  <head>
-<!DOCTYPE html>
-<html>
-  <head>
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fino and BizNext Distributor</title>
+    <title>Fino and BizNext Distributor Portal</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: sans-serif; }
-        body { background-color: #f4f7f6; color: #333; }
-        header { background: #1e3c72; color: white; text-align: center; padding: 30px 10px; }
-        header h1 { font-size: 2rem; margin-bottom: 5px; }
-        header p { font-size: 1rem; opacity: 0.9; }
-        .tagline { background-color: #ff9900; color: white; text-align: center; padding: 10px; font-weight: bold; }
-        .container { max-width: 800px; margin: 20px auto; padding: 0 15px; }
-        .section-title { text-align: center; margin: 30px 0 15px; color: #1e3c72; font-size: 1.5rem; }
-        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); border-top: 4px solid #1e3c72; margin-bottom: 15px; }
-        .card h3 { color: #2a5298; margin-bottom: 10px; }
-        .card ul { list-style-type: square; padding-left: 20px; }
-        .card ul li { margin-bottom: 8px; }
-        .contact-box { background: white; border-radius: 8px; padding: 30px 15px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-top: 30px; border: 1px solid #ddd; }
-        .btn-whatsapp { display: inline-block; background-color: #25D366; color: white; padding: 12px 25px; border-radius: 25px; text-decoration: none; font-weight: bold; margin-top: 15px; }
-        footer { background-color: #111; color: white; text-align: center; padding: 15px; margin-top: 40px; font-size: 0.8rem; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f0f4f8; color: #333; line-height: 1.6; }
+        
+        /* Header & Brand Identity with Gemini Gradient */
+        header { 
+            background: linear-gradient(135deg, #4285f4, #9b51e0, #e91e63); 
+            color: white; 
+            text-align: center; 
+            padding: 40px 15px; 
+            position: relative; 
+        }
+        header h1 { font-size: 2.5rem; margin-bottom: 10px; font-weight: 700; letter-spacing: 0.5px; }
+        header p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        
+        .tagline { background-color: #fbbc05; color: #222; text-align: center; padding: 12px; font-weight: bold; font-size: 1.05rem; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .container { max-width: 900px; margin: 30px auto; padding: 0 15px; }
+        
+        /* Interactive Search & Filter Controls */
+        .controls-wrapper { background: white; padding: 20px; border-radius: 10px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .search-box { width: 100%; padding: 12px 15px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; outline: none; transition: border-color 0.3s; }
+        .search-box:focus { border-color: #9b51e0; }
+        
+        .filter-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; justify-content: center; }
+        .filter-btn { background: #e2e8f0; color: #4a5568; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; }
+        
+        /* Filter Button Active State matching Gemini Colors */
+        .filter-btn.active, .filter-btn:hover { 
+            background: linear-gradient(45deg, #4285f4, #9b51e0); 
+            color: white; 
+        }
+        
+        /* Dynamic Cards & Titles with Gradient Text */
+        .section-title { 
+            text-align: center; 
+            margin: 35px 0 20px; 
+            background: linear-gradient(45deg, #4285f4, #9b51e0, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.8rem; 
+            font-weight: 600; 
+        }
+        .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        
+        /* Cards featuring top gradient border indicator */
+        .card { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            border-top: 5px solid #9b51e0; 
+            transition: transform 0.3s; 
+        }
+        .card:hover { transform: translateY(-2px); }
+        
+        .card h3 { 
+            background: linear-gradient(45deg, #4285f4, #9b51e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px; 
+            font-size: 1.3rem; 
+            border-bottom: 1px solid #edf2f7; 
+            padding-bottom: 10px; 
+        }
+        .card ul { list-style: none; }
+        .card ul li { margin-bottom: 12px; position: relative; padding-left: 25px; font-size: 1rem; }
+        .card ul li::before { content: "✓"; position: absolute; left: 0; color: #25D366; font-weight: bold; font-size: 1.1rem; }
+        
+        /* Retailer Lead Capture Form with Validation */
+        .form-box { background: white; border-radius: 10px; padding: 30px 20px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .form-box h2 { 
+            text-align: center; 
+            background: linear-gradient(45deg, #4285f4, #9b51e0, #e91e63);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px; 
+            font-size: 1.6rem; 
+        }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 5px; color: #4a5568; }
+        .form-control { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; }
+        .form-control:focus { outline: none; border-color: #9b51e0; box-shadow: 0 0 0 3px rgba(155,81,224,0.1); }
+        
+        /* Main Button UI update */
+        .btn-submit { 
+            background: linear-gradient(135deg, #4285f4, #9b51e0, #e91e63); 
+            color: white; 
+            border: none; 
+            width: 100%; 
+            padding: 12px; 
+            border-radius: 6px; 
+            font-size: 1.1rem; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: opacity 0.3s; 
+            margin-top: 10px; 
+        }
+        .btn-submit:hover { opacity: 0.95; }
+        
+        /* Secure Data Table Panel */
+        .data-panel { background: white; border-radius: 10px; padding: 20px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
+        .data-panel h3 { 
+            background: linear-gradient(45deg, #4285f4, #9b51e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px; 
+            text-align: center; 
+        }
+        table { width: 100%; border-collapse: collapse; text-align: left; min-width: 500px; }
+        th, td { padding: 12px 15px; border-bottom: 1px solid #e2e8f0; }
+        th { background-color: #f7fafc; color: #4a5568; font-weight: 600; }
+        tr:hover { background-color: #f8fafc; }
+        
+        /* Contact Panel */
+        .contact-box { background: white; border-radius: 10px; padding: 35px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 40px; border: 1px solid #edf2f7; }
+        .contact-box h2 { 
+            background: linear-gradient(45deg, #4285f4, #9b51e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.6rem; 
+        }
+        .btn-whatsapp { display: inline-block; background-color: #25D366; color: white; padding: 14px 30px; border-radius: 30px; text-decoration: none; font-weight: bold; margin-top: 20px; font-size: 1.1rem; box-shadow: 0 4px 10px rgba(37,211,102,0.3); transition: transform 0.2s; }
+        .btn-whatsapp:hover { transform: scale(1.03); }
+        
+        footer { background-color: #1a202c; color: #a0aec0; text-align: center; padding: 20px; margin-top: 50px; font-size: 0.85rem; border-top: 3px solid #e91e63; }
+        
+        @media (min-width: 650px) {
+            .services-grid { grid-template-columns: 1fr 1fr; }
+            .full-width-card { grid-column: span 2; }
+        }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Fino Payments Bank and BizNext</h1>
-        <p>Official Distributor Panel - Digital Banking and AEPS Services</p>
+        <p>Official Distributor Panel - Digital Banking & Financial Inclusion Services</p>
     </header>
 
     <div class="tagline">
@@ -41,43 +149,96 @@
 
     <div class="container">
         
+        <div class="controls-wrapper">
+            <input type="text" id="serviceSearch" class="search-box" placeholder="🔍 Search any service (e.g., ATM, Account, Recharge)..." onkeyup="filterServices()">
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterCategory('all', this)">All Services</button>
+                <button class="filter-btn" onclick="filterCategory('fino', this)">Fino Banking</button>
+                <button class="filter-btn" onclick="filterCategory('aeps', this)">BizNext AEPS</button>
+                <button class="filter-btn" onclick="filterCategory('transfer', this)">Money Transfer & Tech</button>
+            </div>
+        </div>
+        
         <h2 class="section-title">Our Key Services</h2>
         
-        <div class="card">
-            <h3>Fino Banking Services</h3>
-            <ul>
-                <li>Instant Account Opening (Saving and Current)</li>
-                <li>Instant Debit Card (ATM Card) Issuance</li>
-                <li>Cash Deposit and Cash Withdrawal Services</li>
-                <li>Official Fino CSP Merchant ID Activation</li>
-            </ul>
-        </div>
-        
-        <div class="card">
-            <h3>BizNext and AEPS Digital Services</h3>
-            <ul>
-                <li>Aadhaar ATM (AEPS Cash Withdrawal)</li>
-                <li>Micro ATM Cash Withdrawal Services</li>
-                <li>All-in-One Mobile and DTH Recharge Portal</li>
-                <li>Electricity, Water, Gas and Utility Bill Payments</li>
-            </ul>
+        <div class="services-grid" id="servicesGrid">
+            
+            <div class="card" data-category="fino">
+                <h3>Fino Banking Services</h3>
+                <ul>
+                    <li>Instant Account Opening (Saving and Current)</li>
+                    <li>Instant Debit Card (ATM Card) Issuance</li>
+                    <li>Cash Deposit and Cash Withdrawal Services</li>
+                    <li>Official Fino CSP Merchant ID Activation</li>
+                </ul>
+            </div>
+            
+            <div class="card" data-category="aeps">
+                <h3>BizNext and AEPS Digital Services</h3>
+                <ul>
+                    <li>Aadhaar ATM (AEPS Cash Withdrawal)</li>
+                    <li>Micro ATM Cash Withdrawal Services</li>
+                    <li>All-in-One Mobile and DTH Recharge Portal</li>
+                    <li>Electricity, Water, Gas and Utility Bill Payments</li>
+                </ul>
+            </div>
+
+            <div class="card data-category-wrapper" data-category="transfer">
+                <h3>Money Transfer and Products</h3>
+                <ul>
+                    <li>Domestic Money Transfer (DMT) to Any Bank</li>
+                    <li>Fino Micro ATM and Biometric Devices Available</li>
+                    <li>Best Commission Structure for Every Retailer</li>
+                </ul>
+            </div>
+            
         </div>
 
-        <div class="card">
-            <h3>Money Transfer and Products</h3>
-            <ul>
-                <li>Domestic Money Transfer (DMT) to Any Bank</li>
-                <li>Fino Micro ATM and Biometric Devices Available</li>
-                <li>Best Commission Structure for Every Retailer</li>
-            </ul>
+        <div class="form-box">
+            <h2>Apply for New Retailer ID</h2>
+            <form id="retailerForm" onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" class="form-control" placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number *</label>
+                    <input type="tel" id="mobileNumber" class="form-control" placeholder="10-digit mobile number" pattern="[0-9]{10}" title="Please enter a valid 10-digit phone number" required>
+                </div>
+                <div class="form-group">
+                    <label for="shopName">Shop Name / Business Name *</label>
+                    <input type="text" id="shopName" class="form-control" placeholder="Enter shop name" required>
+                </div>
+                <div class="form-group">
+                    <label for="identityDoc">PAN Card String/Remarks (Optional)</label>
+                    <input type="text" id="identityDoc" class="form-control" placeholder="Enter remarks or ID reference securely">
+                </div>
+                <button type="submit" class="btn-submit">Submit Application Locally</button>
+            </form>
+        </div>
+
+        <div class="data-panel">
+            <h3>Submitted Retailer Applications (Saved Locally)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Mobile</th>
+                        <th>Shop Name</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="dataTableBody">
+                </tbody>
+            </table>
         </div>
 
         <div class="contact-box">
-            <h2>Contact for New Retailer ID Support</h2>
-            <p style="margin-top: 10px; font-size: 1.2rem; color: #1e3c72;">Distributor: <strong>SINTU PATEL</strong></p>
-            <p style="color: #666;">Address: Parsia Buzurg</p>
+            <h2>Contact for Distributor Support</h2>
+            <p style="margin-top: 15px; font-size: 1.3rem; color: #9b51e0;">Distributor: <strong>SINTU PATEL</strong></p>
+            <p style="color: #4a5568; font-weight: 500; margin-top: 5px;">📍 Address: Parsia Buzurg, Uttar Pradesh</p>
             <a href="https://wa.me/918840478932?text=Hello%20Sintu%20Patel,%20I%20want%20to%20get%20Fino%20and%20BizNext%20Retailer%20ID." class="btn-whatsapp" target="_blank">
-                Connect via WhatsApp (8840478932)
+                💬 Connect via WhatsApp (8840478932)
             </a>
         </div>
 
@@ -87,5 +248,110 @@
         <p>&copy; 2026 Fino and BizNext Digital Point. All Rights Reserved.</p>
     </footer>
 
+    <script>
+        // Core State Management
+        let dynamicCategoryFilter = 'all';
+
+        // Filter by Category Management
+        function filterCategory(category, element) {
+            dynamicCategoryFilter = category;
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            filterServices();
+        }
+
+        // Live Search Logic Orchestrator
+        function filterServices() {
+            const searchQuery = document.getElementById('serviceSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('#servicesGrid .card');
+
+            cards.forEach(card => {
+                const cardText = card.innerText.toLowerCase();
+                const cardCategory = card.getAttribute('data-category');
+                
+                const matchesSearch = cardText.includes(searchQuery);
+                const matchesCategory = (dynamicCategoryFilter === 'all' || cardCategory === dynamicCategoryFilter);
+
+                if (matchesSearch && matchesCategory) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // Secure Form Submission Handling
+        function handleFormSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('fullName').value.trim();
+            const mobile = document.getElementById('mobileNumber').value.trim();
+            const shop = document.getElementById('shopName').value.trim();
+            const notes = document.getElementById('identityDoc').value.trim();
+
+            if(name === "" || mobile === "" || shop === "") {
+                alert("Please fill all mandatory fields safely.");
+                return;
+            }
+
+            const registrationPayload = {
+                name: name,
+                mobile: mobile,
+                shop: shop,
+                status: 'Pending Verification'
+            };
+
+            // Local Data Operations
+            let localRecords = localStorage.getItem('retailerSubmissions');
+            let recordsArray = localRecords ? JSON.parse(localRecords) : [];
+            recordsArray.push(registrationPayload);
+            localStorage.setItem('retailerSubmissions', JSON.stringify(recordsArray));
+
+            // Form Interface Clean Up
+            document.getElementById('retailerForm').reset();
+            alert("Application data saved locally and successfully inside your browser storage database.");
+            renderTableData();
+        }
+
+        // View Rendering Engine for Local Database
+        function renderTableData() {
+            const tableBody = document.getElementById('dataTableBody');
+            let localRecords = localStorage.getItem('retailerSubmissions');
+            let recordsArray = localRecords ? JSON.parse(localRecords) : [];
+
+            tableBody.innerHTML = "";
+
+            if(recordsArray.length === 0) {
+                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999;">No records registered in local database panel yet.</td></tr>`;
+                return;
+            }
+
+            recordsArray.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><strong>${escapeHtml(record.name)}</strong></td>
+                    <td>${escapeHtml(record.mobile)}</td>
+                    <td>${escapeHtml(record.shop)}</td>
+                    <td><span style="color: #ff9900; font-weight: bold;">${escapeHtml(record.status)}</span></td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        // Input Sanitization helper to protect against XSS Script Inject Vulnerabilities
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+
+        // Execution Hook upon Window Mounting
+        window.onload = function() {
+            renderTableData();
+        };
+    </script>
 </body>
 </html>

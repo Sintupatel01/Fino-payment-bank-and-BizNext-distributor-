@@ -30,13 +30,12 @@
         .filter-container { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; justify-content: center; }
         .filter-btn { background: #e2e8f0; color: #4a5568; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; }
         
-        /* Filter Button Active State matching Gemini Colors */
         .filter-btn.active, .filter-btn:hover { 
             background: linear-gradient(45deg, #4285f4, #9b51e0); 
             color: white; 
         }
         
-        /* Dynamic Cards & Titles with Gradient Text */
+        /* Dynamic Cards & Titles */
         .section-title { 
             text-align: center; 
             margin: 35px 0 20px; 
@@ -48,7 +47,6 @@
         }
         .services-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
         
-        /* Cards featuring top gradient border indicator */
         .card { 
             background: white; 
             padding: 25px; 
@@ -72,7 +70,12 @@
         .card ul li { margin-bottom: 12px; position: relative; padding-left: 25px; font-size: 1rem; }
         .card ul li::before { content: "✓"; position: absolute; left: 0; color: #25D366; font-weight: bold; font-size: 1.1rem; }
         
-        /* Retailer Lead Capture Form with Validation */
+        /* Product Specific Styles */
+        .product-price { font-size: 1.25rem; color: #e91e63; font-weight: bold; margin: 10px 0; }
+        .btn-order-prod { display: block; width: 100%; text-align: center; background: #25D366; color: white; padding: 10px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; text-decoration: none; margin-top: 15px; transition: background 0.3s; }
+        .btn-order-prod:hover { background: #20ba5a; }
+
+        /* Form Styling */
         .form-box { background: white; border-radius: 10px; padding: 30px 20px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
         .form-box h2 { 
             text-align: center; 
@@ -87,7 +90,6 @@
         .form-control { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e0; border-radius: 6px; font-size: 1rem; }
         .form-control:focus { outline: none; border-color: #9b51e0; box-shadow: 0 0 0 3px rgba(155,81,224,0.1); }
         
-        /* Main Button UI update */
         .btn-submit { 
             background: linear-gradient(135deg, #4285f4, #9b51e0, #e91e63); 
             color: white; 
@@ -103,7 +105,7 @@
         }
         .btn-submit:hover { opacity: 0.95; }
         
-        /* Secure Data Table Panel */
+        /* Data Table Panel */
         .data-panel { background: white; border-radius: 10px; padding: 20px; margin-top: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-x: auto; }
         .data-panel h3 { 
             background: linear-gradient(45deg, #4285f4, #9b51e0);
@@ -117,6 +119,18 @@
         th { background-color: #f7fafc; color: #4a5568; font-weight: 600; }
         tr:hover { background-color: #f8fafc; }
         
+        /* Action Buttons for Backend Door */
+        .btn-action { padding: 4px 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 0.85rem; margin-right: 5px; color: white; }
+        .btn-approve { background-color: #25D366; }
+        .btn-reject { background-color: #e91e63; }
+        .btn-delete { background-color: #7f8c8d; }
+
+        /* Secret Control Panels */
+        .admin-login-sec { margin-top: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .btn-admin-gate { background: transparent; border: none; color: #a0aec0; cursor: pointer; font-size: 0.85rem; text-decoration: underline; }
+        .admin-controls { display: none; background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ffeeba; }
+        .admin-settings-tool { display: inline-block; margin-left: 15px; padding: 2px 8px; background: #9b51e0; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.8rem; font-weight: bold; }
+
         /* Contact Panel */
         .contact-box { background: white; border-radius: 10px; padding: 35px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-top: 40px; border: 1px solid #edf2f7; }
         .contact-box h2 { 
@@ -132,7 +146,6 @@
         
         @media (min-width: 650px) {
             .services-grid { grid-template-columns: 1fr 1fr; }
-            .full-width-card { grid-column: span 2; }
         }
     </style>
 </head>
@@ -150,19 +163,19 @@
     <div class="container">
         
         <div class="controls-wrapper">
-            <input type="text" id="serviceSearch" class="search-box" placeholder="🔍 Search any service (e.g., ATM, Account, Recharge)..." onkeyup="filterServices()">
+            <input type="text" id="serviceSearch" class="search-box" placeholder="🔍 Search any service or product (e.g., ATM, Mantra, Printer)..." onkeyup="filterServices()">
             <div class="filter-container">
-                <button class="filter-btn active" onclick="filterCategory('all', this)">All Services</button>
+                <button class="filter-btn active" onclick="filterCategory('all', this)">All Services & Products</button>
                 <button class="filter-btn" onclick="filterCategory('fino', this)">Fino Banking</button>
                 <button class="filter-btn" onclick="filterCategory('aeps', this)">BizNext AEPS</button>
-                <button class="filter-btn" onclick="filterCategory('transfer', this)">Money Transfer & Tech</button>
+                <button class="filter-btn" onclick="filterCategory('transfer', this)">Money Transfer</button>
+                <button class="filter-btn" onclick="filterCategory('products', this)">Devices & Products</button>
             </div>
         </div>
         
+        <!-- Core Services Section -->
         <h2 class="section-title">Our Key Services</h2>
-        
         <div class="services-grid" id="servicesGrid">
-            
             <div class="card" data-category="fino">
                 <h3>Fino Banking Services</h3>
                 <ul>
@@ -183,17 +196,51 @@
                 </ul>
             </div>
 
-            <div class="card data-category-wrapper" data-category="transfer">
-                <h3>Money Transfer and Products</h3>
+            <div class="card" data-category="transfer">
+                <h3>Money Transfer Services</h3>
                 <ul>
                     <li>Domestic Money Transfer (DMT) to Any Bank</li>
-                    <li>Fino Micro ATM and Biometric Devices Available</li>
+                    <li>Instant Wallet Top-up & Settlement Facility</li>
                     <li>Best Commission Structure for Every Retailer</li>
                 </ul>
             </div>
-            
+
+            <!-- New Banking Hardware Products Grid Items -->
+            <div class="card" data-category="products">
+                <h3>Mantra Biometric Device</h3>
+                <div class="product-price">Best Wholesale Price</div>
+                <ul>
+                    <li>High-Quality Fingerprint Scanner For AEPS</li>
+                    <li>Fully Compatible with Fino & BizNext Apps</li>
+                    <li>Official Brand Warranty & OTG Support Included</li>
+                </ul>
+                <button class="btn-order-prod" onclick="orderProduct('Mantra Biometric Fingerprint Scanner')">💬 Order via WhatsApp</button>
+            </div>
+
+            <div class="card" data-category="products">
+                <h3>Fino Micro ATM Terminal</h3>
+                <div class="product-price">Premium Quality Wireless</div>
+                <ul>
+                    <li>Accept All Debit Cards at Your Retail Shop</li>
+                    <li>Long Battery Life with Bluetooth Connectivity</li>
+                    <li>Instant Settlement for Cash Withdrawal Records</li>
+                </ul>
+                <button class="btn-order-prod" onclick="orderProduct('Fino Micro ATM Device')">💬 Order via WhatsApp</button>
+            </div>
+
+            <div class="card" data-category="products">
+                <h3>Bluetooth Thermal Printer</h3>
+                <div class="product-price">High-Speed Printing</div>
+                <ul>
+                    <li>Print Instant Transaction Receipts for Customers</li>
+                    <li>Completely Wireless & Easy Smartphone Pairing</li>
+                    <li>Low Maintenance Cost - No Ink Ink-Jet Needed</li>
+                </ul>
+                <button class="btn-order-prod" onclick="orderProduct('Bluetooth Thermal Printer')">💬 Order via WhatsApp</button>
+            </div>
         </div>
 
+        <!-- Application Form -->
         <div class="form-box">
             <h2>Apply for New Retailer ID</h2>
             <form id="retailerForm" onsubmit="handleFormSubmit(event)">
@@ -211,14 +258,22 @@
                 </div>
                 <div class="form-group">
                     <label for="identityDoc">PAN Card String/Remarks (Optional)</label>
-                    <input type="text" id="identityDoc" class="form-control" placeholder="Enter remarks or ID reference securely">
+                    <input type="text" id="identityDoc" class="form-control" placeholder="Enter remarks securely">
                 </div>
-                <button type="submit" class="btn-submit">Submit Application Locally</button>
+                <button type="submit" class="btn-submit">Submit Application via WhatsApp</button>
             </form>
         </div>
 
+        <!-- Live Status Tracking Display -->
         <div class="data-panel">
             <h3>Submitted Retailer Applications (Saved Locally)</h3>
+            
+            <div id="adminControls" class="admin-controls">
+                <strong>Distributor Mode Active:</strong> You can now manage records.
+                <button class="admin-settings-tool" onclick="changeSystemPassword()">⚙️ Change Security Code</button>
+                <button onclick="logoutAdmin()" style="margin-left:15px; padding:2px 8px; cursor:pointer;">Exit Admin Mode</button>
+            </div>
+
             <table>
                 <thead>
                     <tr>
@@ -226,13 +281,20 @@
                         <th>Mobile</th>
                         <th>Shop Name</th>
                         <th>Status</th>
+                        <th id="actionHeader" style="display:none;">Distributor Actions</th>
                     </tr>
                 </thead>
                 <tbody id="dataTableBody">
                 </tbody>
             </table>
+            
+            <div class="admin-login-sec">
+                <span id="passStateNotice" style="font-size:0.8rem; color:#b2bec3;">Database Secure</span>
+                <button class="btn-admin-gate" onclick="loginAdminSecretDoor()">🔑 Access Distributor Portal Door</button>
+            </div>
         </div>
 
+        <!-- Contact Box -->
         <div class="contact-box">
             <h2>Contact for Distributor Support</h2>
             <p style="margin-top: 15px; font-size: 1.3rem; color: #9b51e0;">Distributor: <strong>SINTU PATEL</strong></p>
@@ -248,110 +310,6 @@
         <p>&copy; 2026 Fino and BizNext Digital Point. All Rights Reserved.</p>
     </footer>
 
-    <script>
-        // Core State Management
-        let dynamicCategoryFilter = 'all';
-
-        // Filter by Category Management
-        function filterCategory(category, element) {
-            dynamicCategoryFilter = category;
-            const buttons = document.querySelectorAll('.filter-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            element.classList.add('active');
-            filterServices();
-        }
-
-        // Live Search Logic Orchestrator
-        function filterServices() {
-            const searchQuery = document.getElementById('serviceSearch').value.toLowerCase();
-            const cards = document.querySelectorAll('#servicesGrid .card');
-
-            cards.forEach(card => {
-                const cardText = card.innerText.toLowerCase();
-                const cardCategory = card.getAttribute('data-category');
-                
-                const matchesSearch = cardText.includes(searchQuery);
-                const matchesCategory = (dynamicCategoryFilter === 'all' || cardCategory === dynamicCategoryFilter);
-
-                if (matchesSearch && matchesCategory) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        }
-
-        // Secure Form Submission Handling
-        function handleFormSubmit(event) {
-            event.preventDefault();
-
-            const name = document.getElementById('fullName').value.trim();
-            const mobile = document.getElementById('mobileNumber').value.trim();
-            const shop = document.getElementById('shopName').value.trim();
-            const notes = document.getElementById('identityDoc').value.trim();
-
-            if(name === "" || mobile === "" || shop === "") {
-                alert("Please fill all mandatory fields safely.");
-                return;
-            }
-
-            const registrationPayload = {
-                name: name,
-                mobile: mobile,
-                shop: shop,
-                status: 'Pending Verification'
-            };
-
-            // Local Data Operations
-            let localRecords = localStorage.getItem('retailerSubmissions');
-            let recordsArray = localRecords ? JSON.parse(localRecords) : [];
-            recordsArray.push(registrationPayload);
-            localStorage.setItem('retailerSubmissions', JSON.stringify(recordsArray));
-
-            // Form Interface Clean Up
-            document.getElementById('retailerForm').reset();
-            alert("Application data saved locally and successfully inside your browser storage database.");
-            renderTableData();
-        }
-
-        // View Rendering Engine for Local Database
-        function renderTableData() {
-            const tableBody = document.getElementById('dataTableBody');
-            let localRecords = localStorage.getItem('retailerSubmissions');
-            let recordsArray = localRecords ? JSON.parse(localRecords) : [];
-
-            tableBody.innerHTML = "";
-
-            if(recordsArray.length === 0) {
-                tableBody.innerHTML = `<tr><td colspan="4" style="text-align:center; color:#999;">No records registered in local database panel yet.</td></tr>`;
-                return;
-            }
-
-            recordsArray.forEach(record => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td><strong>${escapeHtml(record.name)}</strong></td>
-                    <td>${escapeHtml(record.mobile)}</td>
-                    <td>${escapeHtml(record.shop)}</td>
-                    <td><span style="color: #ff9900; font-weight: bold;">${escapeHtml(record.status)}</span></td>
-                `;
-                tableBody.appendChild(row);
-            });
-        }
-
-        // Input Sanitization helper to protect against XSS Script Inject Vulnerabilities
-        function escapeHtml(str) {
-            return str.replace(/&/g, "&amp;")
-                      .replace(/</g, "&lt;")
-                      .replace(/>/g, "&gt;")
-                      .replace(/"/g, "&quot;")
-                      .replace(/'/g, "&#039;");
-        }
-
-        // Execution Hook upon Window Mounting
-        window.onload = function() {
-            renderTableData();
-        };
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
